@@ -1,31 +1,53 @@
-version: '3.8'
+version: "3.8"
 
 services:
+
   ingesta-ms1:
     build: ./ingesta/ms1_ingest
     container_name: ingesta_ms1_container
     environment:
-      - DB_HOST=172.17.0.1
-      - DB_NAME=bd_ms1
-      - S3_BUCKET_NAME=proyecto-bucket-g5
+      - DB_HOST=172.31.77.26
+      - DB_PORT=3306
+      - DB_USER=ms1_user
+      - DB_PASS=ms1_password
+      - DB_NAME=ms1_clientes_db
+
+      - S3_BUCKET_NAME=proyecto-cloud-bucket-g5
+
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+      - AWS_DEFAULT_REGION=us-east-1
+
 
   ingesta-ms2:
     build: ./ingesta/ms2_ingest
     container_name: ingesta_ms2_container
     environment:
-      - DB_HOST=172.17.0.1
-      - DB_NAME=bd_ms2
-      - S3_BUCKET_NAME=proyecto-bucket-g5
+      - DB_HOST=172.31.77.26
+      - DB_PORT=5432
+      - DB_USER=ms2_user
+      - DB_PASS=ms2_password
+      - DB_NAME=ms2_menu_db
+
+      - S3_BUCKET_NAME=proyecto-cloud-bucket-g5
+
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+      - AWS_DEFAULT_REGION=us-east-1
+
 
   ingesta-ms3:
     build: ./ingesta/ms3_ingest
     container_name: ingesta_ms3_container
     environment:
-      - MONGO_URI=mongodb://root:password@172.17.0.1:27017/
-      - S3_BUCKET_NAME=proyecto-bucket-g5
+      - MONGO_URI=mongodb://ms3_user:ms3_password@172.31.77.26:27017/?authSource=admin
+      - DB_NAME=ms3_reservas_db
+
+      - S3_BUCKET_NAME=proyecto-cloud-bucket-g5
+
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+      - AWS_DEFAULT_REGION=us-east-1
