@@ -10,4 +10,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY main.py .
 
 # Ejecutar el proceso de ingesta
-CMD ["python", "main.py"]
+CMD ["python", "ingestaMS1.py"]
